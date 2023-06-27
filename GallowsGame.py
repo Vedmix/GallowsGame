@@ -4,6 +4,7 @@ from tkinter import *
 
 gallows=Turtle()
 text=Turtle()
+text_error=Turtle()
 words=['Аномалия','Броневик','Вагончик','Гусеница','Двоиться','Египтяне','Жадность','Заложник','Избежать','Красивый']
 hints=['Отклонение от нормы.',"Машина с толстой броней.",'Часть поезда.','Насекомое, которое любит листья.','Казаться двойным, как бы удваиваться',
        'Жители пирамид)','Один из семи грехов.','Похищенный человек.','Не знаю, как поддсказать)','Привлекательный.']
@@ -25,12 +26,14 @@ def clear():
                 text.goto(325, 265)
                 text.pendown()
                 text.clear()
+                text.color('black')
                 text.write(
                     f'Загаданное слово: {word__[0]+" "+ word__[1] +" "+ word__[2] +" "+ word__[3] +" "+ word__[4] + " "+word__[5] +" "+ word__[6] +" "+ word__[7]}',
                     font=('Arial', 20))
 
     if letter not in word:
         error += 1
+        text.color('red')
         if error == 1:
             # ВЕРЕВКА
             gallows.begin_fill()
@@ -46,7 +49,11 @@ def clear():
             gallows.goto(225, 250)
             gallows.goto(220, 250)
             gallows.goto(220, 325)
-            print('Этой буквы в слове нет!')
+            text.penup()
+            text.goto(325, 230)
+            text.pendown()
+            text.color('red')
+            text.write('Этой буквы в слове нет!',font=('Arial', 20))
             entry1.delete(0)
 
         elif error == 2:
@@ -67,8 +74,16 @@ def clear():
             gallows.penup()
             gallows.goto(225, 200)
             gallows.pendown()
-            print('Этой буквы в слове нет!')
-            print(hints[words_i])
+            text.penup()
+            text.goto(325, 230)
+            text.pendown()
+
+            text.write('Этой буквы в слове нет!', font=('Arial', 20))
+            text.penup()
+            text.goto(325, 195)
+            text.pendown()
+
+            text.write(f'Подсказка: {hints[words_i]}', font=('Arial', 20))
             entry1.delete(0)
 
         elif error == 3:
@@ -98,7 +113,11 @@ def clear():
             gallows.goto(165, 190)
             gallows.goto(285, 190)
             gallows.goto(285, 200)
-            print('Этой буквы в слове нет!')
+            text.penup()
+            text.goto(325, 230)
+            text.pendown()
+
+            text.write('Этой буквы в слове нет!', font=('Arial', 20))
             entry1.delete(0)
 
         elif error == 4:
@@ -121,7 +140,11 @@ def clear():
             gallows.penup()
             gallows.goto(245, 143)
             gallows.pendown()
-            print('Этой буквы в слове нет!')
+            text.penup()
+            text.goto(325, 230)
+            text.pendown()
+
+            text.write('Этой буквы в слове нет!', font=('Arial', 20))
             entry1.delete(0)
 
         elif error == 5:
@@ -163,10 +186,29 @@ def clear():
             gallows.goto(215, 93)
             gallows.goto(205, 93)
             gallows.goto(205, 143)
-            print('В следующий раз повезет)')
+            text.penup()
+            text.goto(325, 230)
+            text.pendown()
+            text.clear()
+            text.color('black')
+            text.write('💀Ты проиграл💀', font=('Arial', 35))
+        if error != 5:
+            text_error.penup()
+            text_error.goto(325, 300)
+            text_error.pendown()
+            text_error.clear()
+            text_error.color('black')
+            text_error.write(f'Ошибки: {error} из 5', font=('Arial', 20))
+        else:
+            text_error.clear()
 
     if word__ == word:
-        print('Ты победил!')
+        text.penup()
+        text.goto(325, 230)
+        text.pendown()
+        text.clear()
+        text.color('black')
+        text.write('🎉Ты победил🎉', font=('Arial', 35))
 
 
 
