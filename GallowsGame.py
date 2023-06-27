@@ -5,6 +5,8 @@ from tkinter import *
 gallows=Turtle()
 text=Turtle()
 text_error=Turtle()
+text.hideturtle()
+text_error.hideturtle()
 words=['Аномалия','Броневик','Вагончик','Гусеница','Двоиться','Египтяне','Жадность','Заложник','Избежать','Красивый']
 hints=['Отклонение от нормы.',"Машина с толстой броней.",'Часть поезда.','Насекомое, которое любит листья.','Казаться двойным, как бы удваиваться',
        'Жители пирамид)','Один из семи грехов.','Похищенный человек.','Не знаю, как поддсказать)','Привлекательный.']
@@ -192,51 +194,26 @@ def clear():
             text.clear()
             text.color('black')
             text.write('💀Ты проиграл💀', font=('Arial', 35))
-        if error != 5:
+
+        if (error != 5) :
             text_error.penup()
             text_error.goto(325, 300)
             text_error.pendown()
             text_error.clear()
             text_error.color('black')
             text_error.write(f'Ошибки: {error} из 5', font=('Arial', 20))
+
         else:
             text_error.clear()
 
     if word__ == word:
+        text_error.clear()
         text.penup()
         text.goto(325, 230)
         text.pendown()
         text.clear()
         text.color('black')
         text.write('🎉Ты победил🎉', font=('Arial', 35))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 window1=Tk()
@@ -315,21 +292,7 @@ text.write(
     f'Загаданное слово: {word__[0]+" "+ word__[1] +" "+ word__[2] +" "+ word__[3] +" "+ word__[4] + " "+word__[5] +" "+ word__[6] +" "+ word__[7]}',
     font=('Arial', 20))
 
-
-
-
-
 window1.mainloop()
-
-# speed(5)
-# hideturtle()
-#
-speed(3)
-
-
-
-
-
 
 
 done()
