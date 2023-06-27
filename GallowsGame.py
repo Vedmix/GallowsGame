@@ -2,15 +2,276 @@ from turtle import *
 from random import randrange
 from tkinter import *
 
+gallows=Turtle()
+text=Turtle()
+words=['Аномалия','Броневик','Вагончик','Гусеница','Двоиться','Египтяне','Жадность','Заложник','Избежать','Красивый']
+hints=['Отклонение от нормы.',"Машина с толстой броней.",'Часть поезда.','Насекомое, которое любит листья.','Казаться двойным, как бы удваиваться',
+       'Жители пирамид)','Один из семи грехов.','Похищенный человек.','Не знаю, как поддсказать)','Привлекательный.']
+words_i=randrange(0,10)
+word=list(words[words_i])
+word__=[word[0],'_','_','_','_','_','_',word[7]]
+error=0
+def clear():
+    global error
+    letter=entry1.get()
+    entry1.delete(0)
+    if letter in word:
+        count = word.count(letter)
+        if count == 1:
+            index = word.index(letter)
+            if (index != word[0]) and (index != word[7]):
+                word__[index] = letter
+                text.penup()
+                text.goto(325, 265)
+                text.pendown()
+                text.clear()
+                text.write(
+                    f'Загаданное слово: {word__[0]+" "+ word__[1] +" "+ word__[2] +" "+ word__[3] +" "+ word__[4] + " "+word__[5] +" "+ word__[6] +" "+ word__[7]}',
+                    font=('Arial', 20))
+
+    if letter not in word:
+        error += 1
+        if error == 1:
+            # ВЕРЕВКА
+            gallows.begin_fill()
+            gallows.color('#bb7733')
+            gallows.goto(225, 250)
+            gallows.goto(220, 250)
+            gallows.goto(220, 325)
+            gallows.end_fill()
+            gallows.penup()
+            gallows.goto(225, 325)
+            gallows.pendown()
+            gallows.color('black')
+            gallows.goto(225, 250)
+            gallows.goto(220, 250)
+            gallows.goto(220, 325)
+            print('Этой буквы в слове нет!')
+            entry1.delete(0)
+
+        elif error == 2:
+            # ГОЛОВА
+            gallows.penup()
+            gallows.goto(225, 250)
+            gallows.pendown()
+            gallows.begin_fill()
+            gallows.color('#ffdfc4')
+            gallows.right(180)
+            gallows.circle(25)
+            gallows.end_fill()
+            gallows.color('black')
+            gallows.penup()
+            gallows.goto(225, 250)
+            gallows.pendown()
+            gallows.circle(25)
+            gallows.penup()
+            gallows.goto(225, 200)
+            gallows.pendown()
+            print('Этой буквы в слове нет!')
+            print(hints[words_i])
+            entry1.delete(0)
+
+        elif error == 3:
+            # РУКИ
+            gallows.begin_fill()
+            gallows.color('#ffdfc4')
+            gallows.goto(285, 200)
+            gallows.goto(165, 200)
+            gallows.goto(165, 190)
+            gallows.goto(285, 190)
+            gallows.goto(285, 200)
+            gallows.end_fill()
+            gallows.penup()
+            gallows.goto(225, 200)
+            gallows.pendown()
+            gallows.begin_fill()
+            gallows.color('#002F55')
+            gallows.goto(255, 200)
+            gallows.goto(195, 200)
+            gallows.goto(195, 190)
+            gallows.goto(255, 190)
+            gallows.goto(255, 200)
+            gallows.end_fill()
+            gallows.color('black')
+            gallows.goto(285, 200)
+            gallows.goto(165, 200)
+            gallows.goto(165, 190)
+            gallows.goto(285, 190)
+            gallows.goto(285, 200)
+            print('Этой буквы в слове нет!')
+            entry1.delete(0)
+
+        elif error == 4:
+            # ТЕЛО
+            gallows.penup()
+            gallows.goto(225, 193)
+            gallows.pendown()
+            gallows.begin_fill()
+            gallows.color('#002F55')
+            gallows.goto(245, 193)
+            gallows.goto(245, 143)
+            gallows.goto(205, 143)
+            gallows.goto(205, 193)
+            gallows.end_fill()
+            gallows.color('black')
+            gallows.goto(245, 193)
+            gallows.goto(245, 143)
+            gallows.goto(205, 143)
+            gallows.goto(205, 193)
+            gallows.penup()
+            gallows.goto(245, 143)
+            gallows.pendown()
+            print('Этой буквы в слове нет!')
+            entry1.delete(0)
+
+        elif error == 5:
+            # НОГИ
+            gallows.begin_fill()
+            gallows.color('#002F55')
+            gallows.goto(245, 123)
+            gallows.goto(235, 123)
+            gallows.goto(235, 143)
+            gallows.end_fill()
+            gallows.goto(235, 123)
+            gallows.begin_fill()
+            gallows.color('#ffdfc4')
+            gallows.goto(235, 93)
+            gallows.goto(245, 93)
+            gallows.goto(245, 123)
+            gallows.end_fill()
+            gallows.color('black')
+            gallows.goto(245, 143)
+            gallows.goto(245, 93)
+            gallows.goto(235, 93)
+            gallows.goto(235, 143)
+            gallows.goto(215, 143)
+            gallows.begin_fill()
+            gallows.color('#002F55')
+            gallows.goto(215, 123)
+            gallows.goto(205, 123)
+            gallows.goto(205, 143)
+            gallows.end_fill()
+            gallows.goto(205, 123)
+            gallows.begin_fill()
+            gallows.color('#ffdfc4')
+            gallows.goto(205, 93)
+            gallows.goto(215, 93)
+            gallows.goto(215, 123)
+            gallows.end_fill()
+            gallows.color('black')
+            gallows.goto(215, 143)
+            gallows.goto(215, 93)
+            gallows.goto(205, 93)
+            gallows.goto(205, 143)
+            print('В следующий раз повезет)')
+
+    if word__ == word:
+        print('Ты победил!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 window1=Tk()
 window1.geometry("600x600")
 entry1=Entry(window1, font=('Arial',16))
 entry1.place(x=20,y=20)
-btm=Button(window1,text='Ввести')
+btm=Button(window1,text='Ввести', command=clear)
 btm.place(x=20,y=60)
 btm=Button(window1,text='Закрыть', command=window1.quit)
 btm.place(x=80,y=60)
 
+gallows.begin_fill()
+gallows.color('#F5D033')
+gallows.goto(300,0)
+gallows.goto(300,25)
+gallows.goto(-25,25)
+gallows.goto(-25,0)
+gallows.goto(0,0)
+gallows.end_fill()
+gallows.begin_fill()
+gallows.goto(0,350)
+gallows.goto(25,350)
+gallows.goto(25,0)
+gallows.end_fill()
+gallows.goto(0,325)
+gallows.begin_fill()
+gallows.goto(225,325)
+gallows.goto(225,350)
+gallows.goto(0,350)
+gallows.end_fill()
+gallows.begin_fill()
+gallows.goto(75,325)
+gallows.goto(25,275)
+gallows.goto(25,250)
+gallows.goto(100,325)
+gallows.end_fill()
+gallows.penup()
+gallows.goto(0,0)
+gallows.pendown()
+gallows.pensize(3)
+gallows.color('black')
+gallows.goto(300,0)
+gallows.goto(300,25)
+gallows.goto(-25,25)
+gallows.goto(-25,0)
+gallows.goto(0,0)
+gallows.penup()
+gallows.goto(0,25)
+gallows.pendown()
+gallows.goto(0,350)
+gallows.goto(25,350)
+gallows.goto(25,25)
+gallows.penup()
+gallows.goto(25,325)
+gallows.pendown()
+gallows.goto(225,325)
+gallows.goto(225,350)
+gallows.goto(25,350)
+gallows.penup()
+gallows.goto(75,325)
+gallows.pendown()
+gallows.goto(75,325)
+gallows.goto(25,275)
+gallows.goto(25,250)
+gallows.goto(100,325)
+
+gallows.penup()
+gallows.goto(225,325)
+gallows.pendown()
+gallows.speed(2)
+text.penup()
+text.goto(325, 265)
+text.pendown()
+text.clear()
+text.write(
+    f'Загаданное слово: {word__[0]+" "+ word__[1] +" "+ word__[2] +" "+ word__[3] +" "+ word__[4] + " "+word__[5] +" "+ word__[6] +" "+ word__[7]}',
+    font=('Arial', 20))
 
 
 
@@ -21,218 +282,12 @@ window1.mainloop()
 # speed(5)
 # hideturtle()
 #
-# begin_fill()
-# color('#F5D033')
-# goto(300,0)
-# goto(300,25)
-# goto(-25,25)
-# goto(-25,0)
-# goto(0,0)
-# end_fill()
-# begin_fill()
-# goto(0,350)
-# goto(25,350)
-# goto(25,0)
-# end_fill()
-# goto(0,325)
-# begin_fill()
-# goto(225,325)
-# goto(225,350)
-# goto(0,350)
-# end_fill()
-# begin_fill()
-# goto(75,325)
-# goto(25,275)
-# goto(25,250)
-# goto(100,325)
-# end_fill()
-# penup()
-# goto(0,0)
-# pendown()
-# pensize(3)
-# color('black')
-# goto(300,0)
-# goto(300,25)
-# goto(-25,25)
-# goto(-25,0)
-# goto(0,0)
-# penup()
-# goto(0,25)
-# pendown()
-# goto(0,350)
-# goto(25,350)
-# goto(25,25)
-# penup()
-# goto(25,325)
-# pendown()
-# goto(225,325)
-# goto(225,350)
-# goto(25,350)
-# penup()
-# goto(75,325)
-# pendown()
-# goto(75,325)
-# goto(25,275)
-# goto(25,250)
-# goto(100,325)
-# penup()
-# goto(225,325)
-# pendown()
-# speed(2)
-#
-# words=['Аномалия','Броневик','Вагончик','Гусеница','Двоиться','Египтяне','Жадность','Заложник','Избежать','Красивый']
-# hints=['Отклонение от нормы.',"Машина с толстой броней.",'Часть поезда.','Насекомое, которое любит листья.','Казаться двойным, как бы удваиваться',
-#        'Жители пирамид)','Один из семи грехов.','Похищенный человек.','Не знаю, как поддсказать)','Привлекательный.']
-# print('Привет, я загадал слово из 8 букв, поробуй его отгадать)')
-# print('Удачи!')
-# words_i=randrange(0,10)
-# word=list(words[words_i])
-# word__=[word[0],'_','_','_','_','_','_',word[7]]
-# word_index=[]
-# print(word__)
-# error=0
-# for i in range(0,14):
-#     letter = input('Введи букву >> ')
-#     if letter in word:
-#         count=word.count(letter)
-#         if count == 1:
-#             index=word.index(letter)
-#             if (index != word[0]) and (index != word[7]):
-#                 word__[index]=letter
-#                 print(word__)
-#     if letter not in word:
-#         error+=1
-#         if error == 1:
-#             #ВЕРЕВКА
-#             begin_fill()
-#             color('#bb7733')
-#             goto(225,250)
-#             goto(220,250)
-#             goto(220,325)
-#             end_fill()
-#             penup()
-#             goto(225,325)
-#             pendown()
-#             color('black')
-#             goto(225,250)
-#             goto(220,250)
-#             goto(220,325)
-#             print('Этой буквы в слове нет!')
-#
-#         elif error == 2:
-#             # ГОЛОВА
-#             penup()
-#             goto(225,250)
-#             pendown()
-#             begin_fill()
-#             color('#ffdfc4')
-#             right(180)
-#             circle(25)
-#             end_fill()
-#             color('black')
-#             penup()
-#             goto(225,250)
-#             pendown()
-#             circle(25)
-#             penup()
-#             goto(225,200)
-#             pendown()
-#             print('Этой буквы в слове нет!')
-#             print(hints[words_i])
-#
-#         elif error == 3:
-#             # РУКИ
-#             begin_fill()
-#             color('#ffdfc4')
-#             goto(285,200)
-#             goto(165,200)
-#             goto(165,190)
-#             goto(285,190)
-#             goto(285,200)
-#             end_fill()
-#             penup()
-#             goto(225,200)
-#             pendown()
-#             begin_fill()
-#             color('#002F55')
-#             goto(255,200)
-#             goto(195,200)
-#             goto(195,190)
-#             goto(255,190)
-#             goto(255,200)
-#             end_fill()
-#             color('black')
-#             goto(285,200)
-#             goto(165,200)
-#             goto(165,190)
-#             goto(285,190)
-#             goto(285,200)
-#             print('Этой буквы в слове нет!')
-#
-#         elif error == 4:
-#             # ТЕЛО
-#             penup()
-#             goto(225,193)
-#             pendown()
-#             begin_fill()
-#             color('#002F55')
-#             goto(245,193)
-#             goto(245,143)
-#             goto(205,143)
-#             goto(205,193)
-#             end_fill()
-#             color('black')
-#             goto(245,193)
-#             goto(245,143)
-#             goto(205,143)
-#             goto(205,193)
-#             penup()
-#             goto(245,143)
-#             pendown()
-#             print('Этой буквы в слове нет!')
-#
-#         elif error == 5:
-#             # НОГИ
-#             begin_fill()
-#             color('#002F55')
-#             goto(245,123)
-#             goto(235,123)
-#             goto(235,143)
-#             end_fill()
-#             goto(235,123)
-#             begin_fill()
-#             color('#ffdfc4')
-#             goto(235,93)
-#             goto(245,93)
-#             goto(245,123)
-#             end_fill()
-#             color('black')
-#             goto(245,143)
-#             goto(245,93)
-#             goto(235,93)
-#             goto(235,143)
-#             goto(215,143)
-#             begin_fill()
-#             color('#002F55')
-#             goto(215,123)
-#             goto(205,123)
-#             goto(205,143)
-#             end_fill()
-#             goto(205,123)
-#             begin_fill()
-#             color('#ffdfc4')
-#             goto(205,93)
-#             goto(215,93)
-#             goto(215,123)
-#             end_fill()
-#             color('black')
-#             goto(215,143)
-#             goto(215,93)
-#             goto(205,93)
-#             goto(205,143)
-#             print('В следующий раз повезет)')
-#             break
-#     if word__==word:
-#         print('Ты победил!')
-#         break
-# done()
+speed(3)
+
+
+
+
+
+
+
+done()
