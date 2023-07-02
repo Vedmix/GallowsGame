@@ -5,11 +5,16 @@ from tkinter import *
 gallows=Turtle()
 text=Turtle()
 text_error=Turtle()
+text_wrong_letter=Turtle()
+text_wrong_letter.hideturtle()
+gallows.hideturtle()
+gallows.screen.setup(1600,800)
 text.hideturtle()
 text_error.hideturtle()
 words=['Аномалия','Броневик','Вагончик','Гусеница','Двоиться','Египтяне','Жадность','Заложник','Избежать','Красивый']
 hints=['Отклонение от нормы.',"Машина с толстой броней.",'Часть поезда.','Насекомое, которое любит листья.','Казаться двойным, как бы удваиваться',
        'Жители пирамид)','Один из семи грехов.','Похищенный человек.','Не знаю, как поддсказать)','Привлекательный.']
+wrong_letter=[]
 words_i=randrange(0,10)
 word=list(words[words_i])
 word__=[word[0],'_','_','_','_','_','_',word[7]]
@@ -35,7 +40,7 @@ def clear():
 
     if letter not in word:
         error += 1
-        text.color('red')
+        wrong_letter.append(letter)
         if error == 1:
             # ВЕРЕВКА
             gallows.begin_fill()
@@ -209,16 +214,24 @@ def clear():
             text.goto(325, 230)
             text.pendown()
             text.clear()
+            text_wrong_letter.clear()
             text.color('black')
             text.write('💀Ты проиграл💀', font=('Arial', 35))
 
-        if (error != 5) :
+        if error != 5 :
             text_error.penup()
             text_error.goto(325, 300)
             text_error.pendown()
             text_error.clear()
             text_error.color('black')
             text_error.write(f'Ошибки: {error} из 5', font=('Arial', 20))
+
+            text_wrong_letter.penup()
+            text_wrong_letter.goto(325, 100)
+            text_wrong_letter.pendown()
+            text_wrong_letter.clear()
+            text_wrong_letter.color('black')
+            text_wrong_letter.write(f'Введенные буквы: {wrong_letter}', font=('Arial', 20))
 
         else:
             text_error.clear()
@@ -231,7 +244,6 @@ def clear():
         text.clear()
         text.color('black')
         text.write('🎉Ты победил🎉', font=('Arial', 35))
-
 
 window1=Tk()
 window1.geometry("600x600")
@@ -310,6 +322,5 @@ text.write(
     font=('Arial', 20))
 
 window1.mainloop()
-
 
 done()
