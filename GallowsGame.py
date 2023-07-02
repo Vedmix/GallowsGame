@@ -19,6 +19,14 @@ words_i=randrange(0,10)
 word=list(words[words_i])
 word__=[word[0],'_','_','_','_','_','_',word[7]]
 error=0
+def input_color_active(event):
+    event.widget.config(bg='#DCDCDC', activebackground='#7CFC00')
+def input_color_passive(event):
+    event.widget.config(bg='white')
+def close_color_active(event):
+    event.widget.config(bg='#DCDCDC', activebackground='red')
+def close_color_passive(event):
+    event.widget.config(bg='white')
 def clear():
     global error
     letter=entry1.get()
@@ -246,13 +254,23 @@ def clear():
         text.write('🎉Ты победил🎉', font=('Arial', 35))
 
 window1=Tk()
-window1.geometry("600x600")
+window1.geometry("700x600")
+lbl1=Label(window1, text='Привет! Я загадал слово из восьми букв, попробуй его отгадать.', font=('Arial', 16))
+lbl1.place(x=20,y=20)
+lbl2=Label(window1,text='Буква:',font=('Arial', 16))
+lbl2.place(x=20,y=50)
 entry1=Entry(window1, font=('Arial',16))
-entry1.place(x=20,y=20)
-btm=Button(window1,text='Ввести', command=clear)
-btm.place(x=20,y=60)
-btm=Button(window1,text='Закрыть', command=window1.quit)
-btm.place(x=80,y=60)
+entry1.place(x=90,y=50)
+btm_done=Button(window1,text='Ввести букву', font=('Arial', 16), command=clear)
+btm_done.place(x=20,y=90)
+btm_close=Button(window1,text='Закрыть', font=('Arial', 16), command=window1.quit)
+btm_close.place(x=180,y=90)
+
+
+btm_done.bind('<Enter>', input_color_active)
+btm_done.bind('<Leave>', input_color_passive)
+btm_close.bind('<Enter>', close_color_active)
+btm_close.bind('<Leave>', close_color_passive)
 
 gallows.begin_fill()
 gallows.color('#F5D033')
