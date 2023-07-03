@@ -254,17 +254,18 @@ def clear():
         text.write('🎉Ты победил🎉', font=('Arial', 35))
 
 window1=Tk()
-window1.geometry("700x600")
+window1.geometry("680x150")
+window1.resizable(width=False, height=False)
 lbl1=Label(window1, text='Привет! Я загадал слово из восьми букв, попробуй его отгадать.', font=('Arial', 16))
 lbl1.place(x=20,y=20)
 lbl2=Label(window1,text='Буква:',font=('Arial', 16))
-lbl2.place(x=20,y=50)
+lbl2.place(x=120,y=50)
 entry1=Entry(window1, font=('Arial',16))
-entry1.place(x=90,y=50)
+entry1.place(x=190,y=50)
 btm_done=Button(window1,text='Ввести букву', font=('Arial', 16), command=clear)
-btm_done.place(x=20,y=90)
+btm_done.place(x=150,y=90)
 btm_close=Button(window1,text='Закрыть', font=('Arial', 16), command=window1.quit)
-btm_close.place(x=180,y=90)
+btm_close.place(x=310,y=90)
 
 
 btm_done.bind('<Enter>', input_color_active)
