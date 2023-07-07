@@ -5,18 +5,23 @@ from tkinter import *
 gallows=Turtle()
 text=Turtle()
 text_error=Turtle()
+text_hint=Turtle()
 text_wrong_letter=Turtle()
 text_wrong_letter.hideturtle()
+text_hint.hideturtle()
 gallows.hideturtle()
 gallows.screen.setup(1600,800)
 text.hideturtle()
 text_error.hideturtle()
-words=['Аномалия','Броневик','Вагончик','Гусеница','Двоиться','Египтяне','Жадность','Заложник','Избежать','Красивый']
-hints=['Отклонение от нормы.',"Машина с толстой броней.",'Часть поезда.','Насекомое, которое любит листья.','Казаться двойным, как бы удваиваться',
-       'Жители пирамид)','Один из семи грехов.','Похищенный человек.','Не знаю, как поддсказать)','Привлекательный.']
+
+file1=open('C://Users//VEDMIX.lenovo//PycharmProjects//GallowsGame//words.txt', encoding='utf-8')
+words=file1.readlines()
+file2=open('C://Users//VEDMIX.lenovo//PycharmProjects//GallowsGame//hints.txt', encoding='utf-8')
+hints=file2.readlines()
 wrong_letter=[]
-words_i=randrange(0,10)
-word=list(words[words_i])
+words_i=randrange(0,29)
+word=list(words[words_i][:-1])
+
 word__=[word[0],'_','_','_','_','_','_',word[7]]
 error=0
 def input_color_active(event):
@@ -45,6 +50,27 @@ def clear():
                 text.write(
                     f'Загаданное слово: {word__[0]+" "+ word__[1] +" "+ word__[2] +" "+ word__[3] +" "+ word__[4] + " "+word__[5] +" "+ word__[6] +" "+ word__[7]}',
                     font=('Arial', 20))
+        if count >1:
+            if letter == word[0]:
+                index = word.index(letter,word.index(letter)+1)
+            if letter == word[7]:
+                index = word.index(letter)
+            if (letter != word[0]) and (letter != word[7]):
+                index = word.index(letter)
+                word__[index] = letter
+                index = word.index(letter, word.index(letter) + 1)
+                word__[index] = letter
+
+            word__[index] = letter
+            text.penup()
+            text.goto(325, 265)
+            text.pendown()
+            text.clear()
+            text.color('black')
+            text.write(
+                f'Загаданное слово: {word__[0] + " " + word__[1] + " " + word__[2] + " " + word__[3] + " " + word__[4] + " " + word__[5] + " " + word__[6] + " " + word__[7]}',
+                font=('Arial', 20))
+
 
     if letter not in word:
         error += 1
@@ -92,13 +118,13 @@ def clear():
             text.penup()
             text.goto(325, 230)
             text.pendown()
-
+            text.color('red')
             text.write('Этой буквы в слове нет!', font=('Arial', 20))
-            text.penup()
-            text.goto(325, 195)
-            text.pendown()
+            text_hint.penup()
+            text_hint.goto(325, 100)
+            text_hint.pendown()
 
-            text.write(f'Подсказка: {hints[words_i]}', font=('Arial', 20))
+            text_hint.write(f'Подсказка: {hints[words_i]}', font=('Arial', 20))
             entry1.delete(0)
 
         elif error == 3:
@@ -147,7 +173,7 @@ def clear():
             text.penup()
             text.goto(325, 230)
             text.pendown()
-
+            text.color('red')
             text.write('Этой буквы в слове нет!', font=('Arial', 20))
             entry1.delete(0)
 
@@ -168,7 +194,7 @@ def clear():
             text.penup()
             text.goto(325, 230)
             text.pendown()
-
+            text.color('red')
             text.write('Этой буквы в слове нет!', font=('Arial', 20))
             entry1.delete(0)
 
@@ -253,26 +279,6 @@ def clear():
         text.color('black')
         text.write('🎉Ты победил🎉', font=('Arial', 35))
 
-window1=Tk()
-window1.geometry("680x150")
-window1.resizable(width=False, height=False)
-lbl1=Label(window1, text='Привет! Я загадал слово из восьми букв, попробуй его отгадать.', font=('Arial', 16))
-lbl1.place(x=20,y=20)
-lbl2=Label(window1,text='Буква:',font=('Arial', 16))
-lbl2.place(x=120,y=50)
-entry1=Entry(window1, font=('Arial',16))
-entry1.place(x=190,y=50)
-btm_done=Button(window1,text='Ввести букву', font=('Arial', 16), command=clear)
-btm_done.place(x=150,y=90)
-btm_close=Button(window1,text='Закрыть', font=('Arial', 16), command=window1.quit)
-btm_close.place(x=310,y=90)
-
-
-btm_done.bind('<Enter>', input_color_active)
-btm_done.bind('<Leave>', input_color_passive)
-btm_close.bind('<Enter>', close_color_active)
-btm_close.bind('<Leave>', close_color_passive)
-
 gallows.begin_fill()
 gallows.color('#F5D033')
 gallows.goto(300,0)
@@ -339,6 +345,28 @@ text.clear()
 text.write(
     f'Загаданное слово: {word__[0]+" "+ word__[1] +" "+ word__[2] +" "+ word__[3] +" "+ word__[4] + " "+word__[5] +" "+ word__[6] +" "+ word__[7]}',
     font=('Arial', 20))
+
+window1=Tk()
+window1.geometry("680x150")
+window1.resizable(width=False, height=False)
+lbl1=Label(window1, text='Привет! Я загадал слово из восьми букв, попробуй его отгадать.', font=('Arial', 16))
+lbl1.place(x=20,y=20)
+lbl2=Label(window1,text='Буква:',font=('Arial', 16))
+lbl2.place(x=120,y=50)
+entry1=Entry(window1, font=('Arial',16))
+entry1.place(x=190,y=50)
+btm_done=Button(window1,text='Ввести букву', font=('Arial', 16), command=clear)
+btm_done.place(x=150,y=90)
+btm_close=Button(window1,text='Закрыть', font=('Arial', 16), command=window1.quit)
+btm_close.place(x=310,y=90)
+
+
+btm_done.bind('<Enter>', input_color_active)
+btm_done.bind('<Leave>', input_color_passive)
+btm_close.bind('<Enter>', close_color_active)
+btm_close.bind('<Leave>', close_color_passive)
+
+
 
 window1.mainloop()
 
