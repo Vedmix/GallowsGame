@@ -249,6 +249,7 @@ def clear():
             text.pendown()
             text.clear()
             text_wrong_letter.clear()
+            text_hint.clear()
             text.color('black')
             text.write('💀Ты проиграл💀', font=('Arial', 35))
 
@@ -276,6 +277,8 @@ def clear():
         text.goto(325, 230)
         text.pendown()
         text.clear()
+        text_hint.clear()
+        text_error.clear()
         text.color('black')
         text.write('🎉Ты победил🎉', font=('Arial', 35))
 
