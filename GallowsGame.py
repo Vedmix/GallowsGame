@@ -2,30 +2,17 @@ from turtle import *
 from random import randrange
 from tkinter import *
 
-class gallows(Turtle):
-    def __init__(self):
-        super().__init__()
-        self.hideturtle()
-class text(Turtle):
-    def __init__(self,x,y,color,sh):
-        super().__init__()
-        self.hideturtle()
-class text_error(Turtle):
-    def __init__(self,x,y,color,sh):
-        super().__init__()
-        self.hideturtle()
-class text_wrong_letter(Turtle):
-    def __init__(self,x,y,color,sh):
-        super().__init__()
-        self.hideturtle()
-class text_hint(Turtle):
-    def __init__(self,x,y,color,sh):
-        super().__init__()
-        self.hideturtle()
-
-
+gallows=Turtle()
+text=Turtle()
+text_error=Turtle()
+text_hint=Turtle()
+text_wrong_letter=Turtle()
+text_wrong_letter.hideturtle()
+text_hint.hideturtle()
+gallows.hideturtle()
 gallows.screen.setup(1600,800)
-
+text.hideturtle()
+text_error.hideturtle()
 
 file1=open('C://Users//VEDMIX.lenovo//PycharmProjects//GallowsGame//words.txt', encoding='utf-8')
 words=file1.readlines()
