@@ -26,39 +26,39 @@ import pygame
 # text.hideturtle()
 # text_error.hideturtle()
 #
-# file1=open('words.txt', encoding='utf-8')
-# words=file1.readlines()
-# file2=open('hints.txt', encoding='utf-8')
-# hints=file2.readlines()
-# colors =[
-#     "#000000", "#FFFFFF", "#FF0000", "#00FF00", "#0000FF",
-#     "#FFFF00", "#FF00FF", "#00FFFF", "#800000", "#008000",
-#     "#000080", "#808000", "#800080", "#008080", "#808080",
-#     "#C0C0C0", "#FF8080", "#80FF80", "#8080FF", "#FFFF80",
-#     "#FF80FF", "#80FFFF", "#FF0000", "#00FF00", "#0000FF",
-#     "#FFFF00", "#FF00FF", "#00FFFF", "#800000", "#008000",
-#     "#000080", "#808000", "#800080", "#008080", "#808080",
-#     "#C0C0C0", "#FF8080", "#80FF80"]
-# wrong_letter=[]
-# letters = ["а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф",
-# "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я"]
-# words_i=randrange(0,29)
-#
-# word=list(words[words_i][:-1])
-#
-# word__=[word[0],'_','_','_','_','_','_',word[7]]
-# error=0
-# def input_color_active(event):
-#     event.widget.config(bg='#DCDCDC', activebackground='#7CFC00')
-# def input_color_passive(event):
-#     event.widget.config(bg='white')
-# def close_color_active(event):
-#     event.widget.config(bg='#DCDCDC', activebackground='red')
-# def close_color_passive(event):
-#     event.widget.config(bg='white')
-# def only_one(a):
-#     entry1.delete ('0',END)
-#
+file1=open('words.txt', encoding='utf-8')
+words=file1.readlines()
+file2=open('hints.txt', encoding='utf-8')
+hints=file2.readlines()
+colors =[
+    "#000000", "#FFFFFF", "#FF0000", "#00FF00", "#0000FF",
+    "#FFFF00", "#FF00FF", "#00FFFF", "#800000", "#008000",
+    "#000080", "#808000", "#800080", "#008080", "#808080",
+    "#C0C0C0", "#FF8080", "#80FF80", "#8080FF", "#FFFF80",
+    "#FF80FF", "#80FFFF", "#FF0000", "#00FF00", "#0000FF",
+    "#FFFF00", "#FF00FF", "#00FFFF", "#800000", "#008000",
+    "#000080", "#808000", "#800080", "#008080", "#808080",
+    "#C0C0C0", "#FF8080", "#80FF80"]
+wrong_letter=[]
+letters = ["а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф",
+"х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я"]
+words_i=randrange(0,29)
+
+word=list(words[words_i][:-1])
+
+word__=[word[0],'_','_','_','_','_','_',word[7]]
+error=0
+def input_color_active(event):
+    event.widget.config(bg='#DCDCDC', activebackground='#7CFC00')
+def input_color_passive(event):
+    event.widget.config(bg='white')
+def close_color_active(event):
+    event.widget.config(bg='#DCDCDC', activebackground='red')
+def close_color_passive(event):
+    event.widget.config(bg='white')
+def only_one(a):
+    entry1.delete ('0',END)
+
 # def clear():
 #     global error
 #     global wrong_letter
@@ -453,17 +453,27 @@ import pygame
 
 
 window1=Tk()
-window1.geometry("1000x1000")
-# window1.resizable(width=False, height=False)
+window1.geometry("1000x730")
+window1.resizable(width=False, height=False)
 window1.title('GallowsGame')
+
 
 canvas = ScrolledCanvas(window1)
 canvas.config(width=900, height=500)
 canvas.place(x=50,y=50)
-gallows_x=250
-gallows_y=160
+
 gallows=RawTurtle(canvas)
 gallows.hideturtle()
+
+text=RawTurtle(canvas)
+text.hideturtle()
+
+
+gallows_x=320
+gallows_y=160
+
+
+
 gallows.penup()
 gallows.goto(0-gallows_x,0-gallows_y)
 gallows.pendown()
@@ -529,26 +539,41 @@ gallows.goto(75-gallows_x,325-gallows_y)
 gallows.goto(25-gallows_x,275-gallows_y)
 gallows.goto(25-gallows_x,250-gallows_y)
 gallows.goto(100-gallows_x,325-gallows_y)
+gallows.speed(2)
+
+gallows.penup()
+gallows.goto(225-gallows_x,325-gallows_y)
+gallows.pendown()
+gallows.speed(2)
+
+text.penup()
+text.goto(325-gallows_x, 265-gallows_y)
+text.pendown()
+text.clear()
+text.write(
+    f'Загаданное слово: {word__[0]+" "+ word__[1] +" "+ word__[2] +" "+ word__[3] +" "+ word__[4] + " "+word__[5] +" "+ word__[6] +" "+ word__[7]}',
+    font=('Arial', 17))
+
+
 
 
 
 lbl1=Label(window1, text='Привет! Я загадал слово из восьми букв, попробуй его отгадать.', font=('Arial', 16))
-lbl1.place(x=20,y=20)
+lbl1.place(x=185,y=570)
 lbl2=Label(window1,text='Буква:',font=('Arial', 16))
-lbl2.place(x=120,y=50)
+lbl2.place(x=295,y=600)
 entry1=Entry(window1, font=('Arial',16))
-entry1.place(x=190,y=50)
+entry1.place(x=367,y=600)
 btm_done=Button(window1,text='Ввести букву', font=('Arial', 16), command=clear)
-btm_done.place(x=150,y=90)
+btm_done.place(x=325,y=640)
 btm_close=Button(window1,text='Закрыть', font=('Arial', 16), command=window1.quit)
-btm_close.place(x=310,y=90)
+btm_close.place(x=485,y=640)
 
-
-# btm_done.bind('<Enter>', input_color_active)
-# btm_done.bind('<Leave>', input_color_passive)
-# btm_close.bind('<Enter>', close_color_active)
-# btm_close.bind('<Leave>', close_color_passive)
-# entry1.bind('<KeyPress>',only_one)
+btm_done.bind('<Enter>', input_color_active)
+btm_done.bind('<Leave>', input_color_passive)
+btm_close.bind('<Enter>', close_color_active)
+btm_close.bind('<Leave>', close_color_passive)
+entry1.bind('<KeyPress>',only_one)
 
 
 window1.mainloop()
