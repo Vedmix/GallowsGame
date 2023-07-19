@@ -1,7 +1,7 @@
 from turtle import *
-from random import randrange
+from random import *
 from tkinter import *
-
+#
 gallows=Turtle()
 text=Turtle()
 text_error=Turtle()
@@ -18,14 +18,24 @@ gallows.screen.setup(1600,800)
 text.hideturtle()
 text_error.hideturtle()
 
-file1=open('C://Users//VEDMIX.lenovo//PycharmProjects//GallowsGame//words.txt', encoding='utf-8')
+file1=open('words.txt', encoding='utf-8')
 words=file1.readlines()
-file2=open('C://Users//VEDMIX.lenovo//PycharmProjects//GallowsGame//hints.txt', encoding='utf-8')
+file2=open('hints.txt', encoding='utf-8')
 hints=file2.readlines()
+colors =[
+    "#000000", "#FFFFFF", "#FF0000", "#00FF00", "#0000FF",
+    "#FFFF00", "#FF00FF", "#00FFFF", "#800000", "#008000",
+    "#000080", "#808000", "#800080", "#008080", "#808080",
+    "#C0C0C0", "#FF8080", "#80FF80", "#8080FF", "#FFFF80",
+    "#FF80FF", "#80FFFF", "#FF0000", "#00FF00", "#0000FF",
+    "#FFFF00", "#FF00FF", "#00FFFF", "#800000", "#008000",
+    "#000080", "#808000", "#800080", "#008080", "#808080",
+    "#C0C0C0", "#FF8080", "#80FF80"]
 wrong_letter=[]
 letters = ["а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф",
 "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я"]
 words_i=randrange(0,29)
+
 word=list(words[words_i][:-1])
 
 word__=[word[0],'_','_','_','_','_','_',word[7]]
@@ -43,6 +53,7 @@ def only_one(a):
 
 def clear():
     global error
+    global wrong_letter
     letter=entry1.get()
     letter=letter.lower()
     entry1.delete(0)
@@ -101,10 +112,7 @@ def clear():
 
 
         if letter not in word:
-            error += 1
-            wrong_letter.append(letter)
-            text_error_letter.clear()
-            if letter == word[0].lower():
+            if letter in wrong_letter:
 
                 text_error_letter.penup()
                 text_error_letter.goto(325, 230)
@@ -113,30 +121,10 @@ def clear():
 
                 error_letter.clear()
                 text_error_letter.write('Буква уже введена!', font=('Arial', 20))
-                btm_done.config(state="normal")
-                entry1.config(state="normal")
-            elif letter == word[7]:
-                text_error_letter.penup()
-                text_error_letter.goto(325, 230)
-                text_error_letter.pendown()
-                text_error_letter.color('red')
-
-                error_letter.clear()
-                text_error_letter.write('Буква уже введена!', font=('Arial', 20))
-                btm_done.config(state="normal")
-                entry1.config(state="normal")
-
-            elif letter in wrong_letter:
-
-                text_error_letter.penup()
-                text_error_letter.goto(325, 230)
-                text_error_letter.pendown()
-                text_error_letter.color('red')
-
-                error_letter.clear()
-                text_error_letter.write('Буква уже введена!', font=('Arial', 20))
-
             else:
+                error += 1
+                wrong_letter.append(letter)
+                text_error_letter.clear()
                 if error == 1:
                     # ВЕРЕВКА
 
@@ -276,6 +264,7 @@ def clear():
                     entry1.config(state="normal")
                     btm_done.config(state="normal")
 
+
                 elif error == 5:
                     # НОГИ
 
@@ -366,7 +355,9 @@ def clear():
             text.color('black')
             error_letter.clear()
             text_wrong_letter.clear()
-            text.write('🎉Ты победил🎉', font=('Arial', 35))
+            while True:
+                text.color(colors[randint(0, 35)])
+                text.write('🎉Ты победил🎉', font=('Arial', 45))
             entry1.config(state="readonly")
             btm_done.config(state="disabled")
     else:
@@ -380,7 +371,7 @@ def clear():
         btm_done.config(state="normal")
         entry1.config(state="normal")
 
-
+gallows.speed(10)
 gallows.begin_fill()
 gallows.color('#F5D033')
 gallows.goto(300,0)
@@ -435,6 +426,7 @@ gallows.goto(75,325)
 gallows.goto(25,275)
 gallows.goto(25,250)
 gallows.goto(100,325)
+gallows.speed(2)
 
 gallows.penup()
 gallows.goto(225,325)
