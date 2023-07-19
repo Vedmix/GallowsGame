@@ -89,6 +89,7 @@ def close_color_passive(event):
 def only_one(a):
     entry1.delete ('0',END)
 
+
 def clear():
     global error
     global wrong_letter
@@ -438,7 +439,7 @@ entry1=Entry(window1, font=('Arial',16))
 entry1.place(x=367,y=600)
 btm_done=Button(window1,text='Ввести букву', font=('Arial', 16), command=clear)
 btm_done.place(x=325,y=640)
-btm_close=Button(window1,text='Закрыть', font=('Arial', 16), command=window1.quit)
+btm_close=Button(window1,text='Закрыть', font=('Arial', 16), command=window1.destroy)
 btm_close.place(x=485,y=640)
 
 btm_done.bind('<Enter>', input_color_active)
