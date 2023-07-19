@@ -1,14 +1,14 @@
 from turtle import *
 from random import *
 from tkinter import *
-import pygame
-#
-# pygame.init()
-#
-# pygame.mixer.music.load("music.mp3")
-#
-# pygame.mixer.music.play()
-# pygame.mixer.music.set_volume(0.02)
+from pygame import *
+
+init()
+
+mixer.music.load("music.mp3")
+mixer.music.play()
+mixer.music.set_volume(0.02)
+
 window1=Tk()
 window1.geometry("1000x730")
 window1.resizable(width=False, height=False)
@@ -88,6 +88,9 @@ def close_color_passive(event):
     event.widget.config(bg='white')
 def only_one(a):
     entry1.delete ('0',END)
+def stop_music():
+    mixer.music.stop()
+
 
 
 def clear():
@@ -438,9 +441,11 @@ lbl2.place(x=295,y=600)
 entry1=Entry(window1, font=('Arial',16))
 entry1.place(x=367,y=600)
 btm_done=Button(window1,text='Ввести букву', font=('Arial', 16), command=clear)
-btm_done.place(x=325,y=640)
+btm_done.place(x=300,y=640)
 btm_close=Button(window1,text='Закрыть', font=('Arial', 16), command=window1.destroy)
-btm_close.place(x=485,y=640)
+btm_close.place(x=455,y=640)
+btm_music=Button(window1,text='⬛', font=('Arial', 16), command=stop_music)
+btm_music.place(x=565,y=640)
 
 btm_done.bind('<Enter>', input_color_active)
 btm_done.bind('<Leave>', input_color_passive)
@@ -541,5 +546,3 @@ entry1.config(state="normal")
 
 
 window1.mainloop()
-
-# done()
