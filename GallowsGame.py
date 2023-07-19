@@ -1,7 +1,15 @@
 from turtle import *
 from random import *
 from tkinter import *
-#
+import pygame
+
+pygame.init()
+
+pygame.mixer.music.load("music.mp3")
+
+pygame.mixer.music.play()
+pygame.mixer.music.set_volume(0.02)
+
 gallows=Turtle()
 text=Turtle()
 text_error=Turtle()
@@ -324,6 +332,7 @@ def clear():
                     text.write('💀Ты проиграл💀', font=('Arial', 35))
                     entry1.config(state="readonly")
 
+
                 if error != 5 :
                     text_error.penup()
                     text_error.goto(325, 300)
@@ -460,7 +469,6 @@ btm_done.bind('<Leave>', input_color_passive)
 btm_close.bind('<Enter>', close_color_active)
 btm_close.bind('<Leave>', close_color_passive)
 entry1.bind('<KeyPress>',only_one)
-
 
 
 window1.mainloop()
