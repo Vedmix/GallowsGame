@@ -331,6 +331,7 @@ def clear():
                     text.color('black')
                     text.write('💀Ты проиграл💀', font=('Arial', 35))
                     entry1.config(state="readonly")
+                    btm_done.config(state="disabled")
 
 
                 if error != 5 :
@@ -367,8 +368,8 @@ def clear():
             while True:
                 text.color(colors[randint(0, 35)])
                 text.write('🎉Ты победил🎉', font=('Arial', 45))
-            entry1.config(state="readonly")
-            btm_done.config(state="disabled")
+                entry1.config(state="readonly")
+                btm_done.config(state="disabled")
     else:
         text_error_letter.penup()
         text_error_letter.goto(325, 230)
@@ -452,6 +453,7 @@ text.write(
 window1=Tk()
 window1.geometry("680x150")
 window1.resizable(width=False, height=False)
+window1.title('GallowsGame')
 lbl1=Label(window1, text='Привет! Я загадал слово из восьми букв, попробуй его отгадать.', font=('Arial', 16))
 lbl1.place(x=20,y=20)
 lbl2=Label(window1,text='Буква:',font=('Arial', 16))
