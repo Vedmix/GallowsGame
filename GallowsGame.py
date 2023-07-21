@@ -362,7 +362,7 @@ def clear():
                     error_letter.pendown()
                     text_error.clear()
                     text.penup()
-                    text.goto(-340, 50)
+                    text.goto(-445, 50)
                     text.pendown()
                     text.clear()
                     text_hint.clear()
@@ -373,7 +373,7 @@ def clear():
                     gallows.clear()
                     while True:
                         text.color(colors2[randint(0, 35)])
-                        text.write('💀 Ты проиграл 💀', font=('Arial', 70))
+                        text.write('💀ВЫ ПРОИГРАЛИ💀', font=('Arial', 70))
                         entry1.config(state="readonly")
                         btm_done.config(state="disabled")
 
@@ -401,7 +401,7 @@ def clear():
         if word__ == word:
             text_error.clear()
             text.penup()
-            text.goto(-320,50)
+            text.goto(-420,50)
             text.pendown()
             text.clear()
             text_hint.clear()
@@ -412,7 +412,7 @@ def clear():
             gallows.clear()
             while True:
                 text.color(colors1[randint(0, 35)])
-                text.write('🎉Ты победил🎉', font=('Arial', 70))
+                text.write('🎆ВЫ ПОБЕДИЛИ🎆', font=('Arial', 70))
                 entry1.config(state="readonly")
                 btm_done.config(state="disabled")
     else:
