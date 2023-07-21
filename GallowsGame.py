@@ -13,6 +13,7 @@ window1=Tk()
 window1.geometry("1000x730")
 window1.resizable(width=False, height=False)
 window1.title('GallowsGame')
+window1["bg"]='#E3E3E3'
 
 
 canvas = ScrolledCanvas(window1)
@@ -79,13 +80,17 @@ error=0
 
 
 def input_color_active(event):
-    event.widget.config(bg='#DCDCDC', activebackground='#7CFC00')
+    event.widget.config(bg='#BBBBBB', activebackground='#7CFC00')
 def input_color_passive(event):
-    event.widget.config(bg='white')
+    event.widget.config(bg='#E3E3E3')
 def close_color_active(event):
-    event.widget.config(bg='#DCDCDC', activebackground='red')
+    event.widget.config(bg='#BBBBBB', activebackground='red')
 def close_color_passive(event):
-    event.widget.config(bg='white')
+    event.widget.config(bg='#E3E3E3')
+def stop_color_active(event):
+    event.widget.config(bg='#BBBBBB', activebackground='red')
+def stop_color_passive(event):
+    event.widget.config(bg='#E3E3E3')
 def only_one(a):
     entry1.delete ('0',END)
 def stop_music():
@@ -434,23 +439,25 @@ def clear():
 
 
 
-lbl1=Label(window1, text='Привет! Я загадал слово из восьми букв, попробуй его отгадать.', font=('Arial', 16))
+lbl1=Label(window1, text='Привет! Я загадал слово из восьми букв, попробуй его отгадать.', bg='#E3E3E3', font=('Arial', 16))
 lbl1.place(x=185,y=570)
-lbl2=Label(window1,text='Буква:',font=('Arial', 16))
+lbl2=Label(window1,text='Буква:', bg='#E3E3E3', font=('Arial', 16))
 lbl2.place(x=295,y=600)
 entry1=Entry(window1, font=('Arial',16))
 entry1.place(x=367,y=600)
-btm_done=Button(window1,text='Ввести букву', font=('Arial', 16), command=clear)
+btm_done=Button(window1,text='Ввести букву', bg='#E3E3E3', font=('Arial', 16), command=clear)
 btm_done.place(x=300,y=640)
-btm_close=Button(window1,text='Закрыть', font=('Arial', 16), command=window1.destroy)
+btm_close=Button(window1,text='Закрыть', bg='#E3E3E3', font=('Arial', 16), command=window1.destroy)
 btm_close.place(x=455,y=640)
-btm_music=Button(window1,text='⬛', font=('Arial', 16), command=stop_music)
-btm_music.place(x=565,y=640)
+btm_stop=Button(window1,text='⬛', bg='#E3E3E3', font=('Arial', 16), command=stop_music)
+btm_stop.place(x=565,y=640)
 
 btm_done.bind('<Enter>', input_color_active)
 btm_done.bind('<Leave>', input_color_passive)
 btm_close.bind('<Enter>', close_color_active)
 btm_close.bind('<Leave>', close_color_passive)
+btm_stop.bind('<Enter>', stop_color_active)
+btm_stop.bind('<Leave>', stop_color_passive)
 entry1.bind('<KeyPress>',only_one)
 
 entry1.config(state="readonly")
@@ -537,12 +544,5 @@ text.write(
     font=('Arial', 17))
 btm_done.config(state="normal")
 entry1.config(state="normal")
-
-
-
-
-
-
-
 
 window1.mainloop()
