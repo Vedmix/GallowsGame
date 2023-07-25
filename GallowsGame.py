@@ -44,10 +44,14 @@ error_letter.hideturtle()
 gallows_x=320
 gallows_y=160
 
-file1=open('words.txt', encoding='utf-8')
-words=file1.readlines()
-file2=open('hints.txt', encoding='utf-8')
-hints=file2.readlines()
+words=[]
+
+
+with open('words.txt', encoding='utf-8') as file:
+    for line in file:
+        sublist = [element for element in line.strip()[1:-1].split(",")]
+        words.append(sublist)
+
 colors1 =[
     "#000000", "#FFFFFF", "#FF0000", "#00FF00", "#0000FF",
     "#FFFF00", "#FF00FF", "#00FFFF", "#800000", "#008000",
@@ -72,9 +76,9 @@ letters = ["а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к
 "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я"]
 words_i=randrange(0,29)
 
-word=list(words[words_i][:-1])
+word=list(words[words_i][0])
 
-word__=[word[0],'_','_','_','_','_','_',word[7]]
+word__=[words[words_i][0][0],'_','_','_','_','_','_',words[words_i][0][7]]
 error=0
 
 
@@ -95,6 +99,8 @@ def only_one(a):
     entry1.delete ('0',END)
 def stop_music():
     mixer.music.stop()
+def enter_press(event):
+    clear()
 
 
 
@@ -109,7 +115,7 @@ def clear():
     text_error_letter.clear()
 
     if letter in letters:
-        if (letter in word__) and (letter != word[0]) and (letter != word[7]):
+        if (letter in word__) or (letter == words[words_i][0][0]) or (letter == words[words_i][0][7]):
             text_error_letter.penup()
             text_error_letter.goto(325-gallows_x, 230-gallows_y)
             text_error_letter.pendown()
@@ -123,7 +129,7 @@ def clear():
             count = word.count(letter)
             if count == 1:
                 index = word.index(letter)
-                if (index != word[0]) and (index != word[7]):
+                if (index != words[words_i][0][0]) and (index != words[words_i][0][7]):
                     word__[index] = letter
                     text.penup()
                     text.goto(325-gallows_x, 265-gallows_y)
@@ -134,11 +140,11 @@ def clear():
                         f'Загаданное слово: {word__[0]+" "+ word__[1] +" "+ word__[2] +" "+ word__[3] +" "+ word__[4] + " "+word__[5] +" "+ word__[6] +" "+ word__[7]}',
                         font=('Arial', 20))
             if count >1:
-                if letter == word[0]:
+                if letter == words[words_i][0][0]:
                     index = word.index(letter,word.index(letter)+1)
-                elif letter == word[7]:
+                elif letter == words[words_i][0][7]:
                     index = word.index(letter)
-                elif (letter != word[0]) and (letter != word[7]):
+                elif (letter != words[words_i][0][0]) and (letter != words[words_i][0][7]):
                     index = word.index(letter)
                     word__[index] = letter
                     index = word.index(letter, word.index(letter) + 1)
@@ -225,14 +231,10 @@ def clear():
                     error_letter.pendown()
                     error_letter.color('red')
                     error_letter.write('Этой буквы в слове нет!', font=('Arial', 20))
-                    text_hint.penup()
-                    text_hint.goto(325-gallows_x, 100-gallows_y)
-                    text_hint.pendown()
-
-                    text_hint.write(f'Подсказка: {hints[words_i]}', font=('Arial', 20))
                     entry1.delete(0)
                     entry1.config(state="normal")
                     btm_done.config(state="normal")
+
 
                 elif error == 3:
                     # РУКИ
@@ -284,6 +286,21 @@ def clear():
                     error_letter.pendown()
                     error_letter.color('red')
                     error_letter.write('Этой буквы в слове нет!', font=('Arial', 20))
+                    if (words_i!=0) and (words_i!=4) and (words_i!= 9) and (words_i!= 13) and (words_i!=17) and (words_i!=18) and (words_i != 25):
+                        text_hint.penup()
+                        text_hint.goto(325 - gallows_x, 200 - gallows_y)
+                        text_hint.pendown()
+                        text_hint.write(f'Подсказка: {words[words_i][1]}', font=('Arial', 20))
+                        text_hint.penup()
+                        text_hint.goto(325 - gallows_x, 165 - gallows_y)
+                        text_hint.pendown()
+                        text_hint.write(f' {words[words_i][2]}', font=('Arial', 20))
+                    else:
+                        text_hint.penup()
+                        text_hint.goto(325 - gallows_x, 200 - gallows_y)
+                        text_hint.pendown()
+                        text_hint.write(f'Подсказка: {words[words_i][1]}', font=('Arial', 20))
+
                     entry1.delete(0)
                     entry1.config(state="normal")
                     btm_done.config(state="normal")
@@ -459,6 +476,7 @@ btm_close.bind('<Leave>', close_color_passive)
 btm_stop.bind('<Enter>', stop_color_active)
 btm_stop.bind('<Leave>', stop_color_passive)
 entry1.bind('<KeyPress>',only_one)
+entry1.bind('<Return>', enter_press)
 
 entry1.config(state="readonly")
 btm_done.config(state="disabled")
