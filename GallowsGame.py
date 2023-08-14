@@ -45,7 +45,8 @@ gallows_x=320
 gallows_y=160
 
 words=[]
-
+click=0
+error=0
 
 with open('words.txt', encoding='utf-8') as file:
     for line in file:
@@ -79,7 +80,7 @@ words_i=randrange(0,29)
 word=list(words[words_i][0])
 
 word__=[words[words_i][0][0],'_','_','_','_','_','_',words[words_i][0][7]]
-error=0
+
 
 
 
@@ -92,13 +93,25 @@ def close_color_active(event):
 def close_color_passive(event):
     event.widget.config(bg='#E3E3E3')
 def stop_color_active(event):
-    event.widget.config(bg='#BBBBBB', activebackground='red')
+    global click
+    click += 1
+    if click % 2 !=0:
+        event.widget.config(bg='#BBBBBB', activebackground='red')
+    elif click % 2 == 0:
+        event.widget.config(bg='#BBBBBB', activebackground='#7CFC00')
+
 def stop_color_passive(event):
     event.widget.config(bg='#E3E3E3')
 def only_one(a):
     entry1.delete ('0',END)
 def stop_music():
-    mixer.music.stop()
+    if click% 2 !=0:
+        mixer.music.stop()
+    elif click % 2 == 0:
+        mixer.music.play()
+
+
+
 def enter_press(event):
     clear()
 
