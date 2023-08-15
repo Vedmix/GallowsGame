@@ -128,7 +128,29 @@ def clear():
     text_error_letter.clear()
 
     if letter in letters:
-        if (letter in word__) or (letter == words[words_i][0][0]) or (letter == words[words_i][0][7]):
+        if  (letter in word__) and ((letter == words[words_i][0][0].lower()) or (letter == words[words_i][0][7])):
+            if letter == words[words_i][0][0]:
+                index = word.index(letter, word.index(letter) + 1)
+            elif letter == words[words_i][0][7]:
+                index = word.index(letter)
+            elif (letter != words[words_i][0][0]) and (letter != words[words_i][0][7]):
+                index = word.index(letter)
+                word__[index] = letter
+                index = word.index(letter, word.index(letter) + 1)
+                word__[index] = letter
+
+            word__[index] = letter
+            text.penup()
+            text.goto(325 - gallows_x, 265 - gallows_y)
+            text.pendown()
+            text.clear()
+            text.color('black')
+            text.write(
+                f'Загаданное слово: {word__[0] + " " + word__[1] + " " + word__[2] + " " + word__[3] + " " + word__[4] + " " + word__[5] + " " + word__[6] + " " + word__[7]}',
+                font=('Arial', 20))
+            btm_done.config(state="normal")
+            entry1.config(state="normal")
+        elif  (letter == words[words_i][0][0].lower()) or (letter == words[words_i][0][7]):
             text_error_letter.penup()
             text_error_letter.goto(325-gallows_x, 230-gallows_y)
             text_error_letter.pendown()
@@ -152,7 +174,7 @@ def clear():
                     text.write(
                         f'Загаданное слово: {word__[0]+" "+ word__[1] +" "+ word__[2] +" "+ word__[3] +" "+ word__[4] + " "+word__[5] +" "+ word__[6] +" "+ word__[7]}',
                         font=('Arial', 20))
-            if count >1:
+            elif count >1:
                 if letter == words[words_i][0][0]:
                     index = word.index(letter,word.index(letter)+1)
                 elif letter == words[words_i][0][7]:
@@ -177,7 +199,7 @@ def clear():
             entry1.config(state="normal")
 
 
-        if letter not in word:
+        elif letter not in word:
             if letter in wrong_letter:
 
                 text_error_letter.penup()
@@ -408,7 +430,7 @@ def clear():
                     gallows.clear()
                     while True:
                         text.color(colors2[randint(0, 35)])
-                        text.write('💀ВЫ ПРОИГРАЛИ💀', font=('Arial', 70))
+                        text.write('💀ВЫ ПРОИГРАЛИ💀', font=('Arial', 65))
                         entry1.config(state="readonly")
                         btm_done.config(state="disabled")
 
@@ -447,7 +469,7 @@ def clear():
             gallows.clear()
             while True:
                 text.color(colors1[randint(0, 35)])
-                text.write('🎆ВЫ ПОБЕДИЛИ🎆', font=('Arial', 70))
+                text.write('🎆ВЫ ПОБЕДИЛИ🎆', font=('Arial', 65))
                 entry1.config(state="readonly")
                 btm_done.config(state="disabled")
     else:
